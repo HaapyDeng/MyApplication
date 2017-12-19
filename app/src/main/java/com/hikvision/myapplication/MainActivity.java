@@ -1,6 +1,7 @@
 package com.hikvision.myapplication;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,7 +16,10 @@ import android.graphics.drawable.PictureDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.SurfaceView;
@@ -39,7 +43,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-
 public class MainActivity extends AppCompatActivity {
 
     SurfaceView v1, v2;
@@ -54,12 +57,20 @@ public class MainActivity extends AppCompatActivity {
 
     TextView time_hour, time_year, week;
 
-    private PopupWindowHelper popupWindowHelper;
-    private View popView, rootView;
+    private PopupWindowHelper popupWindowHelper, popupWindowHelper2;
+    private View popView, popView2, rootView;
     View view;
     ImageView img_1, img_2, img_3;
     LinearLayout text;
     RelativeLayout rl;
+    private ViewPager list_pager;
+
+    private List<View> list_view;
+
+    private viewpageAdapter adpter;
+
+    private RecyclerView mRecyclerView;
+    private GridLayoutManager mGridLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,8 +97,36 @@ public class MainActivity extends AppCompatActivity {
         new TimeThread().start();
 
         popView = LayoutInflater.from(MainActivity.this).inflate(R.layout.popupview, null);
+        popView2 = LayoutInflater.from(MainActivity.this).inflate(R.layout.popupview2, null);
         new popoWindThread().start();
         new popoWindThread2().start();
+
+        //滚动轮播
+//        list_pager = (ViewPager) findViewById(R.id.list_pager);
+//
+//        list_view = new ArrayList<>();
+//        for (int i = 0; i < 4; i++) {
+//            View view = LayoutInflater.from(this).inflate(R.layout.fragment_page, null);
+//            mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+//            mGridLayoutManager = new GridLayoutManager(this, 6);
+//            mGridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
+//            //设置固定大小
+//            mRecyclerView.setHasFixedSize(true);
+//            mRecyclerView.setLayoutManager(new WrapContentLinearLayoutManager(this, 6, GridLayoutManager.VERTICAL, false));
+
+//            MyAdapter mAdapter = new MyAdapter(data);
+//            mRecyclerView.setAdapter(mAdapter);
+//            list_view.add(view);
+//        }
+
+//        adpter = new viewpageAdapter(list_view);
+//        list_pager.setAdapter(adpter);
+//
+//        // 刚开始的时候 吧当前页面是先到最大值的一半 为了循环滑动
+//        int currentItem = Integer.MAX_VALUE / 2;
+//        // 让第一个当前页是 0
+//        //currentItem = currentItem - ((Integer.MAX_VALUE / 2) % 4);
+//        list_pager.setCurrentItem(currentItem);
 
     }
 
@@ -125,7 +164,35 @@ public class MainActivity extends AppCompatActivity {
 //                    img_3.setVisibility(View.GONE);
 //                    text = popView.findViewById(R.id.ll_text);
 //                    text.setVisibility(View.GONE);
-                    popupWindowHelper.dismiss();
+//                    popupWindowHelper.dismiss();
+                    break;
+                case 11:
+                    img_1 = popView2.findViewById(R.id.img_1);
+                    img_1.setVisibility(View.VISIBLE);
+                    mHandler.sendEmptyMessageDelayed(22, 1000);
+                    break;
+                case 22:
+                    img_2 = popView2.findViewById(R.id.img_2);
+                    img_2.setVisibility(View.VISIBLE);
+                    mHandler.sendEmptyMessageDelayed(33, 1000);
+                    break;
+                case 33:
+                    rl = popView2.findViewById(R.id.rl);
+                    rl.setVisibility(View.VISIBLE);
+                    text = popView2.findViewById(R.id.ll_text);
+                    text.setVisibility(View.VISIBLE);
+                    mHandler.sendEmptyMessageDelayed(44, 2000);
+                    break;
+                case 44:
+//                    img_1 = popView2.findViewById(R.id.img_1);
+//                    img_1.setVisibility(View.GONE);
+//                    img_2 = popView2.findViewById(R.id.img_2);
+//                    img_2.setVisibility(View.GONE);
+//                    img_3 = popView2.findViewById(R.id.img_3);
+//                    img_3.setVisibility(View.GONE);
+//                    text = popView2.findViewById(R.id.ll_text);
+//                    text.setVisibility(View.GONE);
+//                    popupWindowHelper2.dismiss();
                     break;
                 case 6:
                     long time = System.currentTimeMillis();
@@ -155,16 +222,18 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case 7:
                     int y = 0;
+                    popView.setPadding(50, 0, 0, 0);
                     if (msg.obj.equals("1")) {
                         y = 120;
                         popupWindowHelper = new PopupWindowHelper(popView);
                         popupWindowHelper.showFromTopLeft(view, y);
                         mHandler.sendEmptyMessageDelayed(1, 500);
                     } else if (msg.obj.equals("2")) {
+                        popView2.setPadding(50, 0, 0, 0);
                         y = 200;
-                        popupWindowHelper = new PopupWindowHelper(popView);
-                        popupWindowHelper.showFromTopLeft(view, y);
-                        mHandler.sendEmptyMessageDelayed(1, 500);
+                        popupWindowHelper2 = new PopupWindowHelper(popView2);
+                        popupWindowHelper2.showFromTopLeft(view, y);
+                        mHandler.sendEmptyMessageDelayed(11, 500);
                     }
 
                     break;
@@ -184,7 +253,7 @@ public class MainActivity extends AppCompatActivity {
                 Thread.sleep(1000);
                 Message msg = new Message();
                 msg.what = 7;
-                msg.obj = "2";
+                msg.obj = "1";
                 mHandler.sendMessage(msg);
 
             } catch (Exception e) {
@@ -198,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
         public void run() {
             super.run();
             try {
-                Thread.sleep(6000);
+                Thread.sleep(3000);
                 Message msg = new Message();
                 msg.what = 7;
                 msg.obj = "2";
@@ -254,6 +323,9 @@ public class MainActivity extends AppCompatActivity {
                                     data1[i] = jsondata.getInt("in") * 50;
                                     data2[i] = jsondata.getInt("out") * 50;
                                 }
+                                //获取总楼层，总人数，每层楼总人数，每间寝室总人数
+                                JSONObject countObject = dataObject.getJSONObject("list");
+
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -343,5 +415,35 @@ public class MainActivity extends AppCompatActivity {
         }
         Log.d("生成的json串为:", jsonresult);
         return jsonresult;
+    }
+
+
+    //防止RecyclerView在刷新数据的时候会出现异常，导致崩溃
+    public class WrapContentLinearLayoutManager extends GridLayoutManager {
+
+
+        public WrapContentLinearLayoutManager(Context context, int spanCount, int orientation, boolean reverseLayout) {
+            super(context, spanCount, orientation, reverseLayout);
+        }
+
+        @Override
+        public void onLayoutCompleted(RecyclerView.State state) {
+            try {
+                super.onLayoutCompleted(state);
+            } catch (IndexOutOfBoundsException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        @Override
+        public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
+            try {
+                super.onLayoutChildren(recycler, state);
+            } catch (IndexOutOfBoundsException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 }

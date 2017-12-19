@@ -5,8 +5,8 @@
     android:background="#ffff44"
     android:gravity="center">
 
-    <TextView
-        android:id="@+id/txt_num"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:gravity="center"

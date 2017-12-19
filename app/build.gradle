@@ -29,4 +29,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
     compile 'com.koushikdutta.async:androidasync:2.+'
+    compile 'com.android.support:recyclerview-v7:24.1.1'
 }

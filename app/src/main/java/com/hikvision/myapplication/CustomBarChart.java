@@ -69,7 +69,7 @@ public class CustomBarChart extends View {
         paintCoordinate.setStyle(Paint.Style.STROKE);
         paintCoordinate.setDither(true);
         paintCoordinate.setAntiAlias(true);
-        paintCoordinate.setColor(ContextCompat.getColor(getContext(), R.color.color11));
+        paintCoordinate.setColor(ContextCompat.getColor(getContext(), R.color.white));
         paintCoordinate.setTextSize(15);
 
         paintRectF = new Paint();

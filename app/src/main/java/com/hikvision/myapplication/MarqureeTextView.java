@@ -8,7 +8,6 @@ import android.widget.TextView;
 /**
  * TextView的跑马灯效果.
  */
-@SuppressLint("AppCompatCustomView")
 public class MarqureeTextView extends TextView {
     public MarqureeTextView(Context context) {
         super(context);
