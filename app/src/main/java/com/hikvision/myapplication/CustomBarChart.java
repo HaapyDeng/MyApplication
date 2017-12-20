@@ -207,11 +207,11 @@ public class CustomBarChart extends View {
 //        for (int i = 1; i <= (xLabel.length - 1); i++) {
 //            canvas.drawText(data[i - 1] + "", xPoint + i * xScale, toY(data[i - 1]) - 5, paintValue);
 //        }
-        canvas.drawText(data[0] / 50 + "", xPoint + 1 * xScale, toY(data[0]) - 5, paintValue);
-        canvas.drawText(data[6] / 50 + "", xPoint + 7 * xScale, toY(data[6]) - 5, paintValue);
-        canvas.drawText(data[11] / 50 + "", xPoint + 12 * xScale, toY(data[11]) - 5, paintValue);
-        canvas.drawText(data[17] / 50 + "", xPoint + 18 * xScale, toY(data[17]) - 5, paintValue);
-        canvas.drawText(data[21] / 50 + "", xPoint + 22 * xScale, toY(data[21]) - 5, paintValue);
+        canvas.drawText(data[0] / 40 + "", xPoint + 1 * xScale, toY(data[0]) - 5, paintValue);
+        canvas.drawText(data[6] / 40 + "", xPoint + 7 * xScale, toY(data[6]) - 5, paintValue);
+        canvas.drawText(data[11] / 40 + "", xPoint + 12 * xScale, toY(data[11]) - 5, paintValue);
+        canvas.drawText(data[17] / 40 + "", xPoint + 18 * xScale, toY(data[17]) - 5, paintValue);
+        canvas.drawText(data[21] / 40 + "", xPoint + 22 * xScale, toY(data[21]) - 5, paintValue);
     }
 
     /**
