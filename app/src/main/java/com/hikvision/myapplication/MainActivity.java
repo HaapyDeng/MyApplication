@@ -71,6 +71,9 @@ public class MainActivity extends AppCompatActivity {
     private View popView, popView2, popView3;
     View view;
     ImageView img_1, img_2, img_3;
+    ImageView img1, img2, img3, img4, img5, img6;
+    TextView name1, name2, name3, grade1, grade2, grade3;
+
     LinearLayout text;
     ImageView rl;
 
@@ -83,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
     String userName = "";
     String userGrade = "";
     String userClass = "";
+    int flag = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +100,21 @@ public class MainActivity extends AppCompatActivity {
         edit.putString("id", "0");
         edit.commit();  //保存数据信息
 
+
+        img1 = (ImageView) findViewById(R.id.img1);
+        name1 = (TextView) findViewById(R.id.name1);
+        grade1 = (TextView) findViewById(R.id.grade1);
+
+        img2 = (ImageView) findViewById(R.id.img2);
+        name2 = (TextView) findViewById(R.id.name2);
+        grade2 = (TextView) findViewById(R.id.grade2);
+
+//        img3 = (ImageView) findViewById(R.id.img3);
+//        name3 = (TextView) findViewById(R.id.name3);
+//        grade3 = (TextView) findViewById(R.id.grade3);
+//        img4 = (ImageView) findViewById(R.id.img4);
+//        img5 = (ImageView) findViewById(R.id.img5);
+//        img6 = (ImageView) findViewById(R.id.img6);
         //studentId
         SharedPreferences sId = getSharedPreferences("studentId", MODE_PRIVATE);
         SharedPreferences.Editor edit1 = sId.edit(); //编辑文件
@@ -108,16 +127,16 @@ public class MainActivity extends AppCompatActivity {
 
         view = View.inflate(this, R.layout.activity_main, null);
         v1 = (SurfaceView) findViewById(R.id.v1);
-        v2 = (SurfaceView) findViewById(R.id.v2);
-//        String video1 = "rtsp://admin:admin@192.168.1.6:554/1";
+//        v2 = (SurfaceView) findViewById(R.id.v2);
+        String video1 = "rtsp://admin:admin@192.168.1.6:554/1";
 //        String video2 = "rtsp://admin:Abcd1234@192.168.1.4:554/1";
 
-        String video1 = "rtsp://admin:Abcd1234@172.18.31.242:554/1";
-        String video2 = "rtsp://admin:Abcd1234@172.18.31.241:554/1";
+//        String video1 = "rtsp://admin:Abcd1234@172.18.31.242:554/1";
+//        String video2 = "rtsp://admin:Abcd1234@172.18.31.241:554/1";
         mVideoView1 = new VideoView(v1, video1, this);
-        mVideoView2 = new VideoView(v2, video2, this);
+//        mVideoView2 = new VideoView(v2, video2, this);
         mVideoView1.createPlayer();
-        mVideoView2.createPlayer();
+//        mVideoView2.createPlayer();
         customBarChart1 = (LinearLayout) findViewById(R.id.customBarChart1);
         customBarChart2 = (LinearLayout) findViewById(R.id.customBarChart2);
 //        new TimeGetdataThread().start();
@@ -133,8 +152,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initId() {
-//        String url = "http://192.168.1.122:8080/";
-        String url = "http://172.18.31.222:8080/";
+        String url = "http://192.168.1.122:8080/";
+//        String url = "http://172.18.31.222:8080/";
         com.loopj.android.http.AsyncHttpClient client = new com.loopj.android.http.AsyncHttpClient();
         client.get(url, new JsonHttpResponseHandler() {
 
@@ -257,8 +276,19 @@ public class MainActivity extends AppCompatActivity {
                         text.setVisibility(View.VISIBLE);
                         TextView nameText2 = popView.findViewById(R.id.name);
                         TextView gradeText2 = popView.findViewById(R.id.grade);
-                        nameText2.setText("校外人员");
+                        userName = "校外人员";
+                        nameText2.setText(userName);
                         gradeText2.setText("请勿擅自进入");
+//                        Bundle B = new Bundle();
+//                        B.putString("nametext", "校外人员");
+//                        B.putString("gradetext", "请勿擅自进入");
+//                        B.putInt("imgId", R.drawable.img_moshengrenbiaoji);
+//                        Message msgg = new Message();
+//                        msgg.what = 4;
+//                        msgg.setData(B);
+//                        mHandler.sendMessageDelayed(msgg, 3000);
+                        mHandler.sendEmptyMessageDelayed(4, 3000);
+
                     } else {
                         String sdDir = Environment.getExternalStorageDirectory().getPath();
                         img_1.setImageURI(Uri.fromFile(new File(sdDir + "/school/" + studentId + ".jpg")));
@@ -280,8 +310,17 @@ public class MainActivity extends AppCompatActivity {
                         TextView gradeText = popView.findViewById(R.id.grade);
                         nameText.setText(userName);
                         gradeText.setText(userGrade + " · " + userClass);
+//                        Bundle B2 = new Bundle();
+//                        B2.putString("nametext", userName);
+//                        B2.putString("gradetext", userGrade + " · " + userClass);
+//                        B2.putString("imgUrl", "" + Uri.fromFile(new File(sdDir + "/school/" + studentId + ".jpg")));
+//                        Message msgg2 = new Message();
+//                        msgg2.what = 4;
+//                        msgg2.setData(B2);
+//                        mHandler.sendMessageDelayed(msgg2, 3000);
+                        mHandler.sendEmptyMessageDelayed(4, 3000);
                     }
-                    mHandler.sendEmptyMessageDelayed(4, 3000);
+
                     break;
                 case 4:
 //                    img_1 = popView.findViewById(R.id.img_1);
@@ -293,6 +332,99 @@ public class MainActivity extends AppCompatActivity {
 //                    img_1.setImageURI(Uri.fromFile(new File(sdDir2 + "/school/" + studentId + ".jpg")));
 //                    mHandler.sendEmptyMessageDelayed(5, 500);
                     popupWindowHelper.dismiss();
+//                    Bundle B3 = msg.getData();
+//                    String nametext = B3.getString("nametext");
+//                    String gradetext = B3.getString("gradetext");
+//                    int imgId;
+//                    String imgUrl = "";
+//                    if (nametext.equals("校外人员")) {
+//                        imgId = B3.getInt("imgId");
+//                    } else {
+//                        imgUrl = B3.getString("imgUrl");
+//                    }
+                    flag = flag + 1;
+                    switch (flag % 2) {
+                        case 1:
+                            LinearLayout ll_11 = (LinearLayout) findViewById(R.id.ll__11);
+                            ll_11.setVisibility(View.VISIBLE);
+                            if (userName.equals("校外人员")) {
+                                img1.setImageDrawable(getResources().getDrawable(R.drawable.img_moshengrenbiaoji));
+                                name1.setText(userName);
+                                grade1.setText("请勿擅自进入");
+                            } else {
+                                String sdDir2 = Environment.getExternalStorageDirectory().getPath();
+                                img1.setImageURI(Uri.fromFile(new File(sdDir2 + "/school/" + studentId + ".jpg")));
+                                name1.setText(userName);
+                                grade1.setText(userGrade + " · " + userClass);
+
+                            }
+                            break;
+                        case 0:
+                            LinearLayout ll_12 = (LinearLayout) findViewById(R.id.ll__12);
+                            ll_12.setVisibility(View.VISIBLE);
+                            if (userName.equals("校外人员")) {
+                                img2.setImageDrawable(getResources().getDrawable(R.drawable.img_moshengrenbiaoji));
+                                name2.setText(userName);
+                                grade2.setText("请勿擅自进入");
+                            } else {
+                                String sdDir2 = Environment.getExternalStorageDirectory().getPath();
+                                img2.setImageURI(Uri.fromFile(new File(sdDir2 + "/school/" + studentId + ".jpg")));
+                                name2.setText(userName);
+                                grade2.setText(userGrade + " · " + userClass);
+
+                            }
+                            break;
+//                        case 3:
+//                            if (userName.equals("校外人员")) {
+//                                img3.setImageDrawable(getResources().getDrawable(R.drawable.img_moshengrenbiaoji));
+//                                name3.setText(userName);
+//                                grade3.setText("请勿擅自进入");
+//                            } else {
+//                                String sdDir2 = Environment.getExternalStorageDirectory().getPath();
+//                                img3.setImageURI(Uri.fromFile(new File(sdDir2 + "/school/" + studentId + ".jpg")));
+//                                name3.setText(userName);
+//                                grade3.setText(userGrade + " · " + userClass);
+//
+//                            }
+//                            break;
+                    }
+//                    if (flag % 3 == 1) {
+//                        if (userName.equals("校外人员")) {
+//                            img1.setImageDrawable(getResources().getDrawable(R.drawable.img_moshengrenbiaoji));
+//                            name1.setText(userName);
+//                            grade1.setText("请勿擅自进入");
+//                        } else {
+//                            String sdDir2 = Environment.getExternalStorageDirectory().getPath();
+//                            img1.setImageURI(Uri.fromFile(new File(sdDir2 + "/school/" + studentId + ".jpg")));
+//                            name1.setText(userName);
+//                            grade1.setText(userGrade + " · " + userClass);
+//
+//                        }
+//                    } else if (flag % 3 == 2) {
+//                        if (userName.equals("校外人员")) {
+//                            img2.setImageDrawable(getResources().getDrawable(R.drawable.img_moshengrenbiaoji));
+//                            name2.setText(userName);
+//                            grade2.setText("请勿擅自进入");
+//                        } else {
+//                            String sdDir2 = Environment.getExternalStorageDirectory().getPath();
+//                            img2.setImageURI(Uri.fromFile(new File(sdDir2 + "/school/" + studentId + ".jpg")));
+//                            name2.setText(userName);
+//                            grade2.setText(userGrade + " · " + userClass);
+//
+//                        }
+//                    } else if (flag % 3 == 0) {
+//                        if (userName.equals("校外人员")) {
+//                            img3.setImageDrawable(getResources().getDrawable(R.drawable.img_moshengrenbiaoji));
+//                            name3.setText(userName);
+//                            grade3.setText("请勿擅自进入");
+//                        } else {
+//                            String sdDir2 = Environment.getExternalStorageDirectory().getPath();
+//                            img3.setImageURI(Uri.fromFile(new File(sdDir2 + "/school/" + studentId + ".jpg")));
+//                            name3.setText(userName);
+//                            grade3.setText(userGrade + " · " + userClass);
+//
+//                        }
+//                    }
                     if (tag == 1) {
                         initId();
                     }
